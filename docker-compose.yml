@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  mariadb:
+    image: bitnami/mariadb:10.11.7
+    environment:
+      - MARIADB_ROOT_PASSWORD=supersecret
+      - MARIADB_DATABASE=moodle
+      - MARIADB_USER=moodle
+      - MARIADB_PASSWORD=moodlepass
+      - MARIADB_CHARACTER_SET=utf8mb4
+      - MARIADB_COLLATE=utf8mb4_unicode_ci
+    volumes:
+      - mariadb_data:/bitnami/mariadb
+
+  moodle:
+    image: bitnami/moodle:4.5.3
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "80:8080"
+    environment:
+      - MOODLE_DATABASE_HOST=mariadb
+      - MOODLE_DATABASE_USER=moodle
+      - MOODLE_DATABASE_PASSWORD=moodlepass
+      - MOODLE_DATABASE_NAME=moodle
+      - MOODLE_USERNAME=admin
+      - MOODLE_PASSWORD=admin123
+    volumes:
+      - moodledata:/bitnami/moodledata
+
+volumes:
+  mariadb_data:
+  moodledata:
