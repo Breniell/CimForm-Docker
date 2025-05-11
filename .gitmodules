@@ -1,3 +1,6 @@
 [submodule "moodle/theme/adaptable"]
 	path = moodle/theme/adaptable
 	url = https://github.com/Breniell/CimForm-Theme.git
+[submodule "local/cimencamplus"]
+	path = local/cimencamplus
+	url = https://github.com/Breniell/cimencamplus.git
